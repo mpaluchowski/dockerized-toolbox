@@ -12,5 +12,4 @@ RUN curl -fSL "https://phar.phpunit.de/phpunit.phar" -o "phpunit.phar" \
 VOLUME ["/app"]
 WORKDIR /app
 
-CMD ["-"]
 ENTRYPOINT ["phpunit"]

@@ -7,5 +7,4 @@ RUN curl -fSL "https://phar.phpunit.de/phploc.phar" -o "phploc.phar" \
 VOLUME ["/app"]
 WORKDIR /app
 
-CMD ["-"]
 ENTRYPOINT ["phploc"]

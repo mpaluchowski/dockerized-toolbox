@@ -9,5 +9,4 @@ RUN curl -fSL "http://static.phpmd.org/php/latest/phpmd.phar" -o "phpmd.phar" \
 VOLUME ["/app"]
 WORKDIR /app
 
-CMD ["-"]
 ENTRYPOINT ["phpmd"]

@@ -9,5 +9,4 @@ RUN curl -fSL "http://phpdox.de/releases/phpdox.phar" -o "phpdox.phar" \
 VOLUME ["/app"]
 WORKDIR /app
 
-CMD ["-"]
 ENTRYPOINT ["phpdox"]

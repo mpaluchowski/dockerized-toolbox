@@ -9,5 +9,4 @@ RUN curl -fSL "http://static.pdepend.org/php/latest/pdepend.phar" -o "pdepend.ph
 VOLUME ["/app"]
 WORKDIR /app
 
-CMD ["-"]
 ENTRYPOINT ["pdepend"]
