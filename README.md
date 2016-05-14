@@ -6,11 +6,7 @@ A set of development tools configured to run inside [Docker][docker-home] contai
 
 1. Open a *nix-compatible shell where the `docker` command is available and configured.
 2. Run the `build-all.sh` script to build all the tool containers.
-3. Copy the individual `run.sh` scripts to anywhere in your `$PATH`, appropriately named, eg.
-
-    ```shell
-    cp composer/run.sh ~/bin/composer
-    ```
+3. Run the `install-all.sh` script to copy all individual `*/run.sh` scripts to `~/bin/` for easy running.
 
 ## Running
 
