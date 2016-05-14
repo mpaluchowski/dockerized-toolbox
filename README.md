@@ -8,7 +8,7 @@ A set of development tools configured to run inside [Docker][docker-home] contai
 2. Run the `build-all.sh` script to build all the tool containers.
 3. Copy the individual `run.sh` scripts to anywhere in your `$PATH`, appropriately named, eg.
 
-    ```
+    ```shell
     cp composer/run.sh ~/bin/composer
     ```
 
@@ -16,7 +16,7 @@ A set of development tools configured to run inside [Docker][docker-home] contai
 
 You can run any tool with its usual command, eg.
 
-```
+```shell
 $ composer --version
 Composer version 1.1.0 2016-05-10 15:21:19
 ```
