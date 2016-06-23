@@ -1,6 +1,6 @@
 # Dockerized Toolbox
 
-A set of development tools configured to run inside [Docker][docker-home] containers, with code mounted from the host machine. This ensures each one is running in a clean environment, there are conflicting dependencies, and also makes upgrading to newer versions trivial.
+A set of development tools configured to run inside [Docker][docker-home] containers, with code mounted from the host machine. This ensures each one is running in a clean environment, there are no conflicting dependencies, and also makes upgrading to newer versions trivial.
 
 ## Installation
 
