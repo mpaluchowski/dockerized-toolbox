@@ -17,6 +17,13 @@ $ composer --version
 Composer version 1.1.0 2016-05-10 15:21:19
 ```
 
+which is the same as running:
+
+```shell
+$ composer/run.sh --version
+Composer version 1.1.0 2016-05-10 15:21:19
+```
+
 The command will start the Docker container, mount your current directory to it, run the tool inside the container, then quit and clean up the container remains, while results will be output to your working directory.
 
 [docker-home]: https://www.docker.com/
