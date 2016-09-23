@@ -5,8 +5,8 @@ A set of development tools configured to run inside [Docker][docker-home] contai
 ## Installation
 
 1. Open a *nix-compatible shell where the `docker` command is available and configured.
-2. Run the `toolbox.sh` script to build all the tool containers.
-3. Run the `install-all.sh` script to copy all individual `*/run.sh` scripts to `~/bin/` for easy running.
+2. Run the `./toolbox.sh build` to build all the tool containers.
+3. Run the `./toolbox.sh install` script to copy all individual `*/run.sh` scripts to `~/bin/` for easy running.
 
 ## Running
 

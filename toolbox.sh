@@ -3,6 +3,9 @@
 # Default prefix is the current directory name
 export DOCKER_IMAGE_PREFIX=${PWD##/*/}
 
+COMMAND=$1
+shift
+
 IMAGES_TO_BUILD=()
 
 while [[ $# -ge 1 ]]; do
@@ -39,8 +42,26 @@ build-some() {
 	done
 }
 
-if [ ${#IMAGES_TO_BUILD[@]} -gt 0 ]; then
-	build-some
-else
-	build-all
-fi
+install-all() {
+	for dir in `find -maxdepth 1 -type d -not -path . -not -path '*/\.*' -printf '%f\n'`
+	do
+		cp ./$dir/run.sh ~/bin/$dir
+		echo "Copied ./$dir/run.sh to ~/bin/$dir"
+	done
+}
+
+
+case "$COMMAND" in
+	build)
+		if [ ${#IMAGES_TO_BUILD[@]} -gt 0 ]; then
+			build-some
+		else
+			build-all
+		fi
+		;;
+	install)
+		install-all
+		;;
+	*)
+		echo "Usage $0 {build [tool-name tool-name]|install [-p|--prefix docker-image-prefix]}"
+esac
