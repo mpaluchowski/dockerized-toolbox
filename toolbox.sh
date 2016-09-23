@@ -42,11 +42,21 @@ build-some() {
 	done
 }
 
+runScript='#!/bin/bash
+
+docker run \
+	--rm \
+	-v $(pwd):/app \
+	__image_name__:latest \
+	$@
+'
+
 install-all() {
 	for dir in `find -maxdepth 1 -type d -not -path . -not -path '*/\.*' -printf '%f\n'`
 	do
-		cp ./$dir/run.sh ~/bin/$dir
-		echo "Copied ./$dir/run.sh to ~/bin/$dir"
+		imageName="$DOCKER_IMAGE_PREFIX/$dir"
+		echo "${runScript/__image_name__/$imageName}" > ~/bin/$dir
+		echo "Created running script ~/bin/$dir"
 	done
 }
 
