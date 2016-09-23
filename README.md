@@ -5,7 +5,7 @@ A set of development tools configured to run inside [Docker][docker-home] contai
 ## Installation
 
 1. Open a *nix-compatible shell where the `docker` command is available and configured.
-2. Run the `build.sh` script to build all the tool containers.
+2. Run the `toolbox.sh` script to build all the tool containers.
 3. Run the `install-all.sh` script to copy all individual `*/run.sh` scripts to `~/bin/` for easy running.
 
 ## Running
@@ -31,7 +31,7 @@ The command will start the Docker container, mount your current directory to it,
 You can change the prefix of the Docker images, from the default being the __name of the working directory__ to anything else via:
 
 ```shell
-$ ./build.sh -p myprefix
+$ ./toolbox.sh -p myprefix
 ```
 
 which will build images with names ie. `myprefix/phpunit`.
