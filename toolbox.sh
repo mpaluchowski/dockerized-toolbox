@@ -47,6 +47,7 @@ runScript='#!/bin/bash
 docker run \
 	--rm \
 	-v $(pwd):/app \
+__run_params__
 	__image_name__:latest \
 	$@
 '
@@ -55,7 +56,21 @@ install-all() {
 	for dir in `find -maxdepth 1 -type d -not -path . -not -path '*/\.*' -printf '%f\n'`
 	do
 		imageName="$DOCKER_IMAGE_PREFIX/$dir"
-		echo "${runScript/__image_name__/$imageName}" > ~/bin/$dir
+
+		runParams=''
+		if [ -e $dir/run-params.conf ]; then
+			runParams=$(cat $dir/run-params.conf | sed -e 's/^\(.*\)$/\t\1 \\/g')
+			echo -e "\tAdding run parameters: $runParams"
+		fi
+
+		echo "$runScript" \
+			| awk -v IMAGE_NAME="$imageName" -v RUN_PARAMS="$runParams" '{
+				sub(/__image_name__/, IMAGE_NAME);
+				sub(/__run_params__/, RUN_PARAMS);
+				print;
+			}' \
+			| awk 'NF' \
+			> ~/bin/$dir
 		echo "Created running script ~/bin/$dir"
 	done
 }
