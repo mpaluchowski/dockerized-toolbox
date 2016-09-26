@@ -36,9 +36,9 @@ build-all() {
 }
 
 build-some() {
-	for container in ${IMAGES_TO_BUILD[@]}; do
-		echo "Building $DOCKER_IMAGE_PREFIX/$container"
-		docker build -t $DOCKER_IMAGE_PREFIX/$container $container
+	for image in ${IMAGES_TO_BUILD[@]}; do
+		echo "Building $DOCKER_IMAGE_PREFIX/$image"
+		docker build -t $DOCKER_IMAGE_PREFIX/$image $image
 	done
 }
 
@@ -55,26 +55,37 @@ __run_params__
 install-all() {
 	for dir in `find -maxdepth 1 -type d -not -path . -not -path '*/\.*' -printf '%f\n'`
 	do
-		imageName="$DOCKER_IMAGE_PREFIX/$dir"
-
-		runParams=''
-		if [ -e $dir/run-params.conf ]; then
-			runParams=$(cat $dir/run-params.conf | sed -e 's/^\(.*\)$/\t\1 \\/g')
-			echo -e "\tAdding run parameters: $runParams"
-		fi
-
-		echo "$runScript" \
-			| awk -v IMAGE_NAME="$imageName" -v RUN_PARAMS="$runParams" '{
-				sub(/__image_name__/, IMAGE_NAME);
-				sub(/__run_params__/, RUN_PARAMS);
-				print;
-			}' \
-			| awk 'NF' \
-			> ~/bin/$dir
-		echo "Created running script ~/bin/$dir"
+		install-one $dir
 	done
 }
 
+install-some() {
+	for image in ${IMAGES_TO_BUILD[@]}; do
+		install-one $image
+	done
+}
+
+install-one() {
+	toolName=$1
+	imageName="$DOCKER_IMAGE_PREFIX/$toolName"
+	echo "Installing running script for $imageName"
+
+	runParams=''
+	if [ -e $toolName/run-params.conf ]; then
+		runParams=$(cat $toolName/run-params.conf | sed -e 's/^\(.*\)$/\t\1 \\/g')
+		echo -e "\tAdding run parameters: $runParams"
+	fi
+
+	echo "$runScript" \
+		| awk -v IMAGE_NAME="$imageName" -v RUN_PARAMS="$runParams" '{
+			sub(/__image_name__/, IMAGE_NAME);
+			sub(/__run_params__/, RUN_PARAMS);
+			print;
+		}' \
+		| awk 'NF' \
+		> ~/bin/$toolName
+	echo "Created running script ~/bin/$toolName"
+}
 
 case "$COMMAND" in
 	build)
@@ -85,7 +96,11 @@ case "$COMMAND" in
 		fi
 		;;
 	install)
-		install-all
+		if [ ${#IMAGES_TO_BUILD[@]} -gt 0 ]; then
+			install-some
+		else
+			install-all
+		fi
 		;;
 	*)
 		echo "Usage $0 {build [tool-name tool-name]|install [-p|--prefix docker-image-prefix]}"
