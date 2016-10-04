@@ -46,7 +46,7 @@ runScript='#!/bin/bash
 
 docker run \
 	--rm \
-	-v $(pwd):/app \
+	-v "/$(pwd):/app" \
 __run_params__
 	__image_name__:latest \
 	$@
