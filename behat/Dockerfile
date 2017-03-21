@@ -1,4 +1,4 @@
-FROM composer:1.3
+FROM composer:1.4
 
 RUN composer global require 'behat/behat'
 
