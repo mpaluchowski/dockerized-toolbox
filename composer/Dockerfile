@@ -1,1 +1,1 @@
-FROM composer:1.5
+FROM composer:1.6
