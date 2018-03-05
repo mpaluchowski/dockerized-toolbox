@@ -1,4 +1,4 @@
-FROM php:7.1-cli
+FROM php:7.2-cli
 
 RUN curl -fSL "https://phar.phpunit.de/phploc.phar" -o "phploc.phar" \
 	&& chmod +x phploc.phar \

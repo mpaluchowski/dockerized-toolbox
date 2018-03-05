@@ -1,4 +1,4 @@
-FROM php:7.1-cli
+FROM php:7.2-cli
 
 RUN apt-get update && apt-get install -y libxslt-dev \
 	&& docker-php-ext-install xsl
